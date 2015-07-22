@@ -1,0 +1,20 @@
+{
+  "name": "demoAWS",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon --watch routes --watch keys ./bin/www"
+  },
+  "dependencies": {
+    "aws-cloudfront-sign": "^2.0.1",
+    "aws-sdk": "^2.1.39",
+    "body-parser": "~1.13.1",
+    "cookie-parser": "~1.3.5",
+    "crypto": "0.0.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.3.2",
+    "express": "~4.13.0",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
+  }
+}

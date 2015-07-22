@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Access</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<script>
+    var serverData = <%- serverData %>;
+
+    function initiate(){
+	 var imageTitle 	= document.getElementById('imageTitle');
+	 var imageTag 	= document.getElementById('image');
+	 var alertMessage 	= document.getElementById('alertMessage');
+
+	 imageTitle.innerHTML = serverData.imageTitle;
+	 if(serverData.url){
+	     imageTag.src = serverData.url;
+	 }
+	 else{
+	     if(serverData.message){
+		  alertMessage.innerHTML	= serverData.message;
+		  imageTag.style.display 	= 'none';
+	     }
+	 }
+    }
+</script>
+<body onload="initiate()">
+    <h1 id="imageTitle"></h1>
+
+    <img id="image" src="" width="200" height="200">
+    <h3 id="alertMessage"></h3>
+</body>
+</html>
