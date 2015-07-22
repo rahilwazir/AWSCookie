@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch routes --watch keys ./bin/www"
+    "start": "nodemon --watch routes --watch keys --debug ./bin/www"
   },
   "dependencies": {
     "aws-cloudfront-sign": "^2.0.1",

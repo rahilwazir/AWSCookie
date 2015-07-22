@@ -141,7 +141,7 @@ function urlSafeString(str) {
 
 function setCloudFrontCookies(req, res, contentUrl, requestedImage) {
     var signedUrl = contentUrl;
-    var cloudFrontCookieExpiry = new Date().getTime() + 36000000;
+    var cloudFrontCookieExpiry = Date.now() + 36000000;
     var privateKey = fs.readFileSync(CLOUDFRONT_KEY_PATH, 'utf-8');
     var policyStatement = {
         Statement: [{
@@ -156,20 +156,22 @@ function setCloudFrontCookies(req, res, contentUrl, requestedImage) {
 
     var customPolicy = JSON.stringify(policyStatement);
     var encodedCustomPolicy = urlSafeBase64Encode(customPolicy);
-    var customPolicySignature = crypto.createSign('SHA1').update(customPolicy).sign(privateKey, 'base64');
-    customPolicySignature = urlSafeString(customPolicySignature);
+
+    var signer = crypto.createSign("RSA-SHA1");
+    signer.update(customPolicy);
+    var customPolicySignature = urlSafeString(signer.sign(privateKey, 'base64'));
+
     var options = {
         domain: CDN_HOST,
         path: '/premium/' + premiumContent[requestedImage],
-        secure: true,
-        httpOnly: true
+        httpOnly: true,
+        secure: true
     };
 
     res.cookie('CloudFront-Policy', encodedCustomPolicy, options);
     res.cookie('CloudFront-Signature', customPolicySignature, options);
     res.cookie('CloudFront-Key-Pair-Id', CLOUDFRONT_KEY_PAIR_ID, options);
 
-    console.log(res._headers);
     res.redirect(contentUrl);
 
 }

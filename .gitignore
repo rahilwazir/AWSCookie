@@ -1,5 +1,7 @@
 .idea
 npm-debug.log
 keys/private/*
+!keys/private/.gitkeep
 keys/public/*
+!keys/public/.gitkeep
 node_modules
